@@ -4,7 +4,8 @@ class Personaje {
   nombre;
   familia;
   edad;
-  estado;
+  estado = "vivo";
+  comunicar() { }
 
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje) {
     this.nombre = nombrePersonaje;
@@ -21,23 +22,30 @@ class Personaje {
 
 class Rey extends Personaje {
   anyosDeReinado;
-  mensaje = "Vais a morir todos";
 
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, anyosDeReinadoPersonaje) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje);
     this.anyosDeReinado = anyosDeReinadoPersonaje;
+  }
+  comunicar() {
+    super.comunicar();
+    return "Vais a morir Todos";
   }
 }
 
 class Luchador extends Personaje {
   ArmaQueUsa;
   destrezaPropiedad; //valor del 1 al 10
-  mensaje = "Primero pego y luego pregunto";
+
 
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, armaPersonaje, destrezaPersonaje) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje);
     this.ArmaQueUsa = armaPersonaje;
     this.setDestreza(destrezaPersonaje);
+  }
+  comunicar() {
+    super.comunicar();
+    return "Primero pego y luego pregunto";
   }
 
   setDestreza(destrezaPersonaje) {
@@ -59,20 +67,27 @@ class Luchador extends Personaje {
 
 class Asesor extends Personaje {
   personajeAQuienAsesora; // tiene que ser un luchador, rey, asesor o escudero
-  mensaje = "No sé por que, pero creo que voy a morir pronto";
+
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, personajeAQuienAsesora) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje)
     this.personajeAQuienAsesora = personajeAQuienAsesora;
+  }
+  comunicar() {
+    super.comunicar();
+    return "No sé por qué, pero creo que voy a morir pronto";
   }
 }
 
 class Escudero extends Personaje {
   personajeAQuienSirve; //tiene que ser un luchador
   gradoDePelotismo; //valor del 1 al 10
-  mensaje = "Soy un Loser";
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, personajeAQuienSirve) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje)
     this.personajeAQuienSirve = personajeAQuienSirve
+  }
+  comunicar() {
+    super.comunicar();
+    return "Soy un Loser";
   }
 }
 
@@ -87,9 +102,9 @@ tyrionLannister.meMuero();
 
 const mensajesLuchadores = personajes => personajes
   .filter(personaje => personaje.constructor.name === "Luchador")
-  .map(personaje => personaje.mensaje);
+  .map(personaje => personaje.comunicar());
 
-/* console.log(personajesGot.reduce((personajesPorTipo, personaje, i) => {
+console.log(personajesGot.reduce((personajesPorTipo, personaje, i) => {
   if (i === 0) {
     personajesPorTipo =
       [personaje.constructor.name,
@@ -99,8 +114,9 @@ const mensajesLuchadores = personajes => personajes
       personajesPorTipo.push(
         personaje.constructor.name,
         { tipo: personaje.constructor.name, personajes: [personaje] }) :
-      personajesPorTipo[personajesPorTipo.indexOf(personaje.constructor.name) + 1]
-        .personajes.push(personaje)
+      personajesPorTipo[personajesPorTipo.indexOf(personaje.constructor.name) + 1].personajes.push(personaje);
+    personajesPorTipo[personajesPorTipo.indexOf(personaje.constructor.name) + 1].personajes
+      .sort((a, b) => a.edad - b.edad);
   }
   return personajesPorTipo;
-}, []).filter(elemento => !(typeof elemento === "string"))); */
+}, []).filter(elemento => !(typeof elemento === "string"))[1].personajes[0]);
