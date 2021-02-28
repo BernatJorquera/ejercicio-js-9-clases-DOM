@@ -117,7 +117,7 @@ class Escudero extends Personaje {
 }
 
 const joffreyBaratheon = new Rey("Joffrey Baratheon", "Baratheon", 19, "Vivo", 2);
-const jaimeLannister = new Luchador("Jamie Lannister", "Lannister", 40, "Vivo", "Espada", 4);
+const jaimeLannister = new Luchador("Jaime Lannister", "Lannister", 40, "Vivo", "Espada", 4);
 const daenerysTargaryen = new Luchador("Daenerys Targaryen", "Targaryen", 30, "Vivo", "Dragones", 8);
 const tyrionLannister = new Asesor("Tyrion Lannister", "Lannister", 40, "Vivo", daenerysTargaryen);
 const bronn = new Escudero("Bronn", "Desconocido/del aguasnegras", 32, "Vivo", jaimeLannister, 5);

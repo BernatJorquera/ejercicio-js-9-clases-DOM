@@ -5,6 +5,10 @@ const creaPersonajes = personajes => {
     const nuevoPersonaje = personajeDummy.cloneNode(true);
     clasePersonaje = personaje.nombre.replace(" ", "");
     const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
+    let nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
+
+    console.log(nombrePropio)
+    personajeFoto.src = `img/${nombrePropio}.jpg`;
 
     nuevoPersonaje.className = nuevoPersonaje.className
       .replace("personaje-dummy", clasePersonaje);
