@@ -33,13 +33,13 @@ class Rey extends Personaje {
 }
 
 class Luchador extends Personaje {
-  ArmaQueUsa;
+  armaQueUsa;
   destrezaPropiedad; //valor del 1 al 10
 
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, armaPersonaje,
     destrezaPersonaje) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje);
-    this.ArmaQueUsa = armaPersonaje;
+    this.armaQueUsa = armaPersonaje;
     this.setDestreza(destrezaPersonaje);
   }
   comunicar() {
@@ -122,19 +122,21 @@ const daenerysTargaryen = new Luchador("Daenerys Targaryen", "Targaryen", 30, "V
 const tyrionLannister = new Asesor("Tyrion Lannister", "Lannister", 40, "Vivo", daenerysTargaryen);
 const bronn = new Escudero("Bronn", "Desconocido/del aguasnegras", 32, "Vivo", jaimeLannister, 5);
 
+/* console.log(Object.getOwnPropertyNames(jaimeLannister)); */
+
 const mensajesLuchadores = (personajes = Personaje.personajesGot) => personajes
   .filter(personaje => personaje.constructor.name === "Luchador")
   .map(personaje => personaje.comunicar());
 
-console.log(Personaje.serie);
+/* console.log(Personaje.serie);
 for (const personaje of Personaje.personajesGot) {
   console.log(personaje);
-}
+} */
 
 jaimeLannister.meMuero();
 tyrionLannister.meMuero();
 
-console.log(Personaje.personajesGot.reduce((personajesPorTipo, personaje, i) => {
+/* console.log(Personaje.personajesGot.reduce((personajesPorTipo, personaje, i) => {
   if (i === 0) {
     personajesPorTipo =
       [personaje.constructor.name,
@@ -149,4 +151,4 @@ console.log(Personaje.personajesGot.reduce((personajesPorTipo, personaje, i) => 
       .sort((a, b) => a.edad - b.edad);
   }
   return personajesPorTipo;
-}, []).filter(elemento => !(typeof elemento === "string")));
+}, []).filter(elemento => !(typeof elemento === "string"))); */
