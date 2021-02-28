@@ -3,7 +3,15 @@ const creaPersonajes = personajes => {
   const listaPersonajes = document.querySelector(".personajes");
   for (const personaje of personajes) {
     const nuevoPersonaje = personajeDummy.cloneNode(true);
-    const clasePersonaje = personaje.nombre.replace(" ", "");
+
+    clasePersonaje = personaje.nombre.replace(" ", "");
+    const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
+    let nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
+
+    console.log(nombrePropio)
+    personajeFoto.src = `img/${nombrePropio}.jpg`;
+
+
     nuevoPersonaje.className = nuevoPersonaje.className
       .replace("personaje-dummy", clasePersonaje);
     listaPersonajes.append(nuevoPersonaje);
