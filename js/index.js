@@ -14,4 +14,4 @@ const creaPersonajes = personajes => {
   }
 }
 
-creaPersonajes(personajesGot);
+creaPersonajes(Personaje.personajesGot);
