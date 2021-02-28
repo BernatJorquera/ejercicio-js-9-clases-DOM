@@ -4,6 +4,8 @@ const creaPersonajes = personajes => {
     const listaPersonajes = document.querySelector(".personajes");
     const nuevoPersonaje = personajeDummy.cloneNode(true);
     clasePersonaje = personaje.nombre.replace(" ", "");
+    const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
+
     nuevoPersonaje.className = nuevoPersonaje.className
       .replace("personaje-dummy", clasePersonaje);
     listaPersonajes.append(nuevoPersonaje);
