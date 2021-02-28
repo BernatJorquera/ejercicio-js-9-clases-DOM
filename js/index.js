@@ -2,6 +2,7 @@ const creaPersonajes = personajes => {
   const personajeDummy = document.querySelector(".personaje-dummy");
   const listaPersonajes = document.querySelector(".personajes");
   for (const personaje of personajes) {
+    console.log(personaje.nombre);
     const nuevoPersonaje = personajeDummy.cloneNode(true);
 
     clasePersonaje = personaje.nombre.replace(" ", "");
@@ -19,6 +20,11 @@ const creaPersonajes = personajes => {
     personajeNombre.textContent = personaje.nombre;
     const personajeEdad = nuevoPersonaje.querySelector(`.edad`);
     personajeEdad.querySelector(".valor").textContent = personaje.edad;
+    if (personaje.estado === "Vivo") {
+      nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
+    } else if (personaje.estado === "Muerto") {
+      nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
+    }
     for (const childNode of nuevoPersonaje.querySelector(".info-especifica").children) {
       LoopPropiedades:
       for (const nombreDePropiedad of Object.getOwnPropertyNames(personaje)
