@@ -1,20 +1,19 @@
-const personajesGot = [];
 class Personaje {
-  serie = "Juego de Tronos";
+  static serie = "Juego de Tronos";
+  static personajesGot = [];
   nombre;
   familia;
   edad;
-  estado = "vivo";
-  comunicar() { }
+  estado = "Vivo";
 
   constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje) {
     this.nombre = nombrePersonaje;
     this.familia = familiaPersonaje;
     this.edad = edadPersonaje;
     this.estado = estadoPersonaje;
-    personajesGot.push(this);
+    Personaje.personajesGot.push(this);
   }
-
+  comunicar() { }
   meMuero() {
     this.estado = "Muerto";
   }
@@ -37,8 +36,8 @@ class Luchador extends Personaje {
   ArmaQueUsa;
   destrezaPropiedad; //valor del 1 al 10
 
-
-  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, armaPersonaje, destrezaPersonaje) {
+  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, armaPersonaje,
+    destrezaPersonaje) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje);
     this.ArmaQueUsa = armaPersonaje;
     this.setDestreza(destrezaPersonaje);
@@ -47,7 +46,6 @@ class Luchador extends Personaje {
     super.comunicar();
     return "Primero pego y luego pregunto";
   }
-
   setDestreza(destrezaPersonaje) {
     if (destrezaPersonaje < 1) {
       this.destrezaPropiedad = 1;
@@ -59,7 +57,6 @@ class Luchador extends Personaje {
       this.destrezaPropiedad = destrezaPersonaje;
     }
   }
-
   set destreza(destrezaPersonaje) {
     this.setDestreza(destrezaPersonaje);
   }
@@ -68,9 +65,10 @@ class Luchador extends Personaje {
 class Asesor extends Personaje {
   personajeAQuienAsesora; // tiene que ser un luchador, rey, asesor o escudero
 
-  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, personajeAQuienAsesora) {
+  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje,
+    personajeAQuienAsesoraArg) {
     super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje)
-    this.personajeAQuienAsesora = personajeAQuienAsesora;
+    this.personajeAQuienAsesora = personajeAQuienAsesoraArg;
   }
   comunicar() {
     super.comunicar();
@@ -81,30 +79,62 @@ class Asesor extends Personaje {
 class Escudero extends Personaje {
   personajeAQuienSirve; //tiene que ser un luchador
   gradoDePelotismo; //valor del 1 al 10
-  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje, personajeAQuienSirve) {
-    super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje)
-    this.personajeAQuienSirve = personajeAQuienSirve
+
+  constructor(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje,
+    personajeAQuienSirveArg, pelotismoPersonaje) {
+    super(nombrePersonaje, familiaPersonaje, edadPersonaje, estadoPersonaje);
+    this.setPersonajeAQuienSirve(personajeAQuienSirveArg);
+    this.setPelotismo(pelotismoPersonaje);
   }
   comunicar() {
     super.comunicar();
     return "Soy un Loser";
+  }
+  setPersonajeAQuienSirve(personajeAQuienSirveArg) {
+    if (personajeAQuienSirveArg.constructor.name === "Luchador") {
+      this.personajeAQuienSirve = personajeAQuienSirveArg;
+    } else {
+      console.log("El personaje a quien sirve un escudero debe ser Luchador");
+    }
+  }
+  set personajeAQuienSirve(personajeAQuienSirveArg) {
+    this.setPersonajeAQuienSirve(personajeAQuienSirveArg);
+  }
+  setPelotismo(pelotismoPersonaje) {
+    if (pelotismoPersonaje < 1) {
+      this.gradoDePelotismo = 1;
+      console.log("El valor de grado de pelotismo debe ser entre 1 y 10");
+    } else if (pelotismoPersonaje > 10) {
+      this.gradoDePelotismo = 10;
+      console.log("El valor de grado de pelotismo debe ser entre 1 y 10");
+    } else {
+      this.gradoDePelotismo = pelotismoPersonaje;
+    }
+  }
+  set pelotismo(pelotismoPersonaje) {
+    this.setPelotismo(pelotismoPersonaje);
   }
 }
 
 const joffreyBaratheon = new Rey("Joffrey Baratheon", "Baratheon", 19, "Vivo", 2);
 const jaimeLannister = new Luchador("Jamie Lannister", "Lannister", 40, "Vivo", "Espada", 4);
 const daenerysTargaryen = new Luchador("Daenerys Targaryen", "Targaryen", 30, "Vivo", "Dragones", 8);
-const tyrionLannister = new Asesor("Tyrion Lannister", "Lannister", 40, "Vivo", joffreyBaratheon)
-const bronn = new Escudero("Bronn", "Desconocido/del aguasnegras", 32, "Vivo", jaimeLannister)
+const tyrionLannister = new Asesor("Tyrion Lannister", "Lannister", 40, "Vivo", daenerysTargaryen);
+const bronn = new Escudero("Bronn", "Desconocido/del aguasnegras", 32, "Vivo", jaimeLannister, 5);
+
+const mensajesLuchadores = (personajes = Personaje.personajesGot) => personajes
+  .filter(personaje => personaje.constructor.name === "Luchador")
+  .map(personaje => personaje.comunicar());
+
+console.log(Personaje.serie);
+for (const personaje of Personaje.personajesGot) {
+  console.log(personaje);
+}
 
 jaimeLannister.meMuero();
 tyrionLannister.meMuero();
 
-const mensajesLuchadores = personajes => personajes
-  .filter(personaje => personaje.constructor.name === "Luchador")
-  .map(personaje => personaje.comunicar());
-
-console.log(personajesGot.reduce((personajesPorTipo, personaje, i) => {
+console.log(Personaje.personajesGot.reduce((personajesPorTipo, personaje, i) => {
   if (i === 0) {
     personajesPorTipo =
       [personaje.constructor.name,
@@ -119,4 +149,4 @@ console.log(personajesGot.reduce((personajesPorTipo, personaje, i) => {
       .sort((a, b) => a.edad - b.edad);
   }
   return personajesPorTipo;
-}, []).filter(elemento => !(typeof elemento === "string"))[1].personajes[0]);
+}, []).filter(elemento => !(typeof elemento === "string")));
