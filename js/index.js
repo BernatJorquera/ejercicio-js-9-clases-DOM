@@ -1,10 +1,12 @@
 const creaPersonajes = personajes => {
   const personajeDummy = document.querySelector(".personaje-dummy");
   const listaPersonajes = document.querySelector(".personajes");
-  for (const personaje of personajes) {
+  for (const i in personajes) {
+    personaje = personajes[i];
     if (document.querySelector(`.${personaje.nombre.replace(" ", "")}`) !== null) {
       document.querySelector(`.${personaje.nombre.replace(" ", "")}`).remove();
     }
+
     const nuevoPersonaje = personajeDummy.cloneNode(true);
     const clasePersonaje = personaje.nombre.replace(" ", "");
     const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
@@ -12,7 +14,7 @@ const creaPersonajes = personajes => {
     personajeFoto.src = `img/${nombrePropio}.jpg`;
     nuevoPersonaje.className = nuevoPersonaje.className
       .replace("personaje-dummy", clasePersonaje);
-    listaPersonajes.append(nuevoPersonaje);
+    setTimeout(() => (listaPersonajes.append(nuevoPersonaje)), 1000 * (+i));
     const personajeNombre = nuevoPersonaje.querySelector(`.nombre`);
     personajeNombre.textContent = personaje.nombre;
     const personajeEdad = nuevoPersonaje.querySelector(`.edad`);
