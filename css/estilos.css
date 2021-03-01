@@ -68,6 +68,10 @@ img.card-img-top {
 .personaje-dummy {
   display: none;
 }
+.nueva-imagen.muerto {
+  -webkit-transform:scaleY(-1);
+  transform: scaleY(-1);
+}
 .comunicaciones {
   position: fixed;
   top: 0;
