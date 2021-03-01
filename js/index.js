@@ -22,13 +22,13 @@ const creaPersonajes = personajes => {
       personajeFoto.classList.add("muerto");
     }
     if (personaje.constructor.name === "Rey") {
-      nuevoPersonaje.querySelector(`.emoji`).textContent = "Corona";
+      nuevoPersonaje.querySelector(`.emoji`).textContent = "👑";
     } else if (personaje.constructor.name === "Luchador") {
-      nuevoPersonaje.querySelector(`.emoji`).textContent = "Espada";
+      nuevoPersonaje.querySelector(`.emoji`).textContent = "🗡";
     } else if (personaje.constructor.name === "Asesor") {
-      nuevoPersonaje.querySelector(`.emoji`).textContent = "Birrete";
+      nuevoPersonaje.querySelector(`.emoji`).textContent = "🎓";
     } else if (personaje.constructor.name === "Escudero") {
-      nuevoPersonaje.querySelector(`.emoji`).textContent = "Escudo";
+      nuevoPersonaje.querySelector(`.emoji`).textContent = "🛡";
     }
     for (const childNode of nuevoPersonaje.querySelector(".info-especifica").children) {
       LoopPropiedades:
