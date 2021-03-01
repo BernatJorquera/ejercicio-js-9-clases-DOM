@@ -2,16 +2,16 @@ const creaPersonajes = personajes => {
   const personajeDummy = document.querySelector(".personaje-dummy");
   const listaPersonajes = document.querySelector(".personajes");
   for (const i in personajes) {
-    personaje = personajes[i];
+    const personaje = personajes[i];
     if (document.querySelector(`.${personaje.nombre.replace(" ", "")}`) !== null) {
       document.querySelector(`.${personaje.nombre.replace(" ", "")}`).remove();
     }
-
     const nuevoPersonaje = personajeDummy.cloneNode(true);
     const clasePersonaje = personaje.nombre.replace(" ", "");
     const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
-    let nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
+    const nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
     personajeFoto.src = `img/${nombrePropio}.jpg`;
+    personajeFoto.alt = personaje.nombre;
     nuevoPersonaje.className = nuevoPersonaje.className
       .replace("personaje-dummy", clasePersonaje);
     setTimeout(() => (listaPersonajes.append(nuevoPersonaje)), 1000 * (+i));
@@ -62,6 +62,19 @@ document.body.addEventListener("click", e => {
       if (e.target.closest(`.${personaje.nombre.replace(" ", "")}`)) {
         personaje.meMuero();
         creaPersonajes(Personaje.personajesGot);
+      }
+    }
+  }
+  if (e.target.classList.contains("accion-habla")) {
+    for (const personaje of Personaje.personajesGot) {
+      if (e.target.closest(`.${personaje.nombre.replace(" ", "")}`)) {
+        const nodoComunicaciones = document.querySelector(".comunicaciones")
+        nodoComunicaciones.querySelector("p").textContent = personaje.comunicar();
+        const nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
+        nodoComunicaciones.querySelector("img").src = `img/${nombrePropio}.jpg`;
+        nodoComunicaciones.querySelector("img").alt = personaje.nombre;
+        nodoComunicaciones.classList.add("on");
+        setTimeout(() => (nodoComunicaciones.classList.remove("on")), 2000);
       }
     }
   }
