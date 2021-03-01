@@ -2,8 +2,10 @@ const creaPersonajes = personajes => {
   const personajeDummy = document.querySelector(".personaje-dummy");
   const listaPersonajes = document.querySelector(".personajes");
   for (const personaje of personajes) {
+    if (document.querySelector(`.${personaje.nombre.replace(" ", "")}`) !== null) {
+      document.querySelector(`.${personaje.nombre.replace(" ", "")}`).remove();
+    }
     const nuevoPersonaje = personajeDummy.cloneNode(true);
-
     const clasePersonaje = personaje.nombre.replace(" ", "");
     const personajeFoto = nuevoPersonaje.querySelector(".nueva-imagen");
     let nombrePropio = personaje.nombre.split(" ")[0].toLowerCase();
@@ -15,12 +17,15 @@ const creaPersonajes = personajes => {
     personajeNombre.textContent = personaje.nombre;
     const personajeEdad = nuevoPersonaje.querySelector(`.edad`);
     personajeEdad.querySelector(".valor").textContent = personaje.edad;
-    if (personaje.estado === "Vivo") {
-      nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
-    } else if (personaje.estado === "Muerto") {
-      nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
-      personajeFoto.classList.add("muerto");
+    function pulgarArribaOAbajo() {
+      if (personaje.estado === "Vivo") {
+        nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
+      } else if (personaje.estado === "Muerto") {
+        nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
+        personajeFoto.classList.add("muerto");
+      }
     }
+    pulgarArribaOAbajo();
     if (personaje.constructor.name === "Rey") {
       nuevoPersonaje.querySelector(`.emoji`).textContent = "👑";
     } else if (personaje.constructor.name === "Luchador") {
@@ -49,11 +54,22 @@ const creaPersonajes = personajes => {
   }
 }
 
+document.body.addEventListener("click", e => {
+  if (e.target.classList.contains("accion-muere")) {
+    for (const personaje of Personaje.personajesGot) {
+      if (e.target.closest(`.${personaje.nombre.replace(" ", "")}`)) {
+        personaje.meMuero();
+        creaPersonajes(Personaje.personajesGot);
+      }
+    }
+  }
+});
+
 const camelToGuiones = fraseCamelCase => {
   let fraseGuiones = "";
   for (const letra of fraseCamelCase) {
     if (letra === letra.toUpperCase()) {
-      fraseGuiones += `-${letra.toLowerCase()}`;
+      fraseGuiones += `- ${letra.toLowerCase()} `;
     } else {
       fraseGuiones += letra;
     }
