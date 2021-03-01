@@ -19,15 +19,12 @@ const creaPersonajes = personajes => {
     personajeNombre.textContent = personaje.nombre;
     const personajeEdad = nuevoPersonaje.querySelector(`.edad`);
     personajeEdad.querySelector(".valor").textContent = personaje.edad;
-    function pulgarArribaOAbajo() {
-      if (personaje.estado === "Vivo") {
-        nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
-      } else if (personaje.estado === "Muerto") {
-        nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
-        personajeFoto.classList.add("muerto");
-      }
+    if (personaje.estado === "Vivo") {
+      nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
+    } else if (personaje.estado === "Muerto") {
+      nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
+      personajeFoto.classList.add("muerto");
     }
-    pulgarArribaOAbajo();
     if (personaje.constructor.name === "Rey") {
       nuevoPersonaje.querySelector(`.emoji`).textContent = "👑";
     } else if (personaje.constructor.name === "Luchador") {
@@ -45,9 +42,10 @@ const creaPersonajes = personajes => {
           childNode.classList.add("d-none");
         } else {
           childNode.classList.remove("d-none");
-          childNode.querySelector(".valor").textContent = (typeof personaje[nombreDePropiedad] === "object") ?
-            personaje[nombreDePropiedad].nombre :
-            personaje[nombreDePropiedad];
+          childNode.querySelector(".valor").textContent =
+            (typeof personaje[nombreDePropiedad] === "object") ?
+              personaje[nombreDePropiedad].nombre :
+              personaje[nombreDePropiedad];
           break LoopPropiedades;
         }
       }
@@ -84,7 +82,7 @@ const camelToGuiones = fraseCamelCase => {
   let fraseGuiones = "";
   for (const letra of fraseCamelCase) {
     if (letra === letra.toUpperCase()) {
-      fraseGuiones += `- ${letra.toLowerCase()} `;
+      fraseGuiones += `-${letra.toLowerCase()}`;
     } else {
       fraseGuiones += letra;
     }
