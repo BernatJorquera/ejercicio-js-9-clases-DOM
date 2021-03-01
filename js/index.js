@@ -19,6 +19,7 @@ const creaPersonajes = personajes => {
       nuevoPersonaje.querySelector(`.estado .muerto`).classList.add("d-none");
     } else if (personaje.estado === "Muerto") {
       nuevoPersonaje.querySelector(`.estado .vivo`).classList.add("d-none");
+      personajeFoto.classList.add("muerto");
     }
     if (personaje.constructor.name === "Rey") {
       nuevoPersonaje.querySelector(`.emoji`).textContent = "Corona";
